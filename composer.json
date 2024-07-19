@@ -1,0 +1,24 @@
+{
+    "name": "razor/sql-mysql",
+    "autoload": {
+        "psr-4": {
+            "Functions\\Classes\\": "functions/Functions/Classes/",
+            "App\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Farid Mahmudov",
+            "email": "Razormad666@gmail.com"
+        }
+    ],
+    "require": {
+        "symfony/var-dumper": "^7.1",
+        "ext-pdo": "*",
+      "ext-intl": "*"
+    }
+    ,
+    "require-dev": {
+        "roave/security-advisories": "dev-latest"
+    }
+}
