@@ -17,8 +17,10 @@ return [
     "db" => require_once __DIR__ . '/utils/db.php',
     "save" => require_once __DIR__ . '/utils/save.php',
     "cropString" => require_once __DIR__ . '/utils/cropString.php',
-    //"dump" => require_once __DIR__ . '/utils/dump.php',
+    "dump" => require_once __DIR__ . '/utils/dump.php',
     "prevent_fav" => require_once __DIR__ . '/utils/prevent-fav.php',
     "path_constants" => require_once __DIR__ . '/utils/path-constants.php',
+    "request_uri" => require_once __DIR__ . '/utils/request-uri.php',
+    "abort" => require_once __DIR__ . '/utils/abort.php',
     
 ];

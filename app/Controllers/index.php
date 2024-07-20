@@ -52,4 +52,4 @@ $recent_posts = array(
 
 $title = "MyBlog :: Home";
 
-require_once PAGES_PATH.'/index.tpl.php';
+require_once PAGES_PATH . '/index.tpl.php';

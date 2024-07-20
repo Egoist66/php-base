@@ -9,7 +9,7 @@ $linksMap = array(
     [
         'name' => 'About',
         'slug' => 'about',
-        'url' => '/about.php',
+        'url' => '/about',
     ],
 );
 
@@ -21,7 +21,7 @@ $linksMap = array(
 <nav class="navbar bg-primary navbar-expand-lg ">
     <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Переключатель навигации">
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Переключатель навигации">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -31,9 +31,7 @@ $linksMap = array(
 
 
                     <li class="nav-item">
-                        <a class="<?= str_contains(basename($_SERVER['REQUEST_URI']), strtolower($link['slug'])) ? 'active nav-link' : 'nav-link' ?>"
-                           aria-current="page"
-                           href=/php-base<?= $link['url'] ?>><?= $link['name'] ?></a>
+                        <a class="nav-link" href=<?= $link['url'] ?>><?= $link['name'] ?></a>
                     </li>
 
                 <?php endforeach; ?>
@@ -44,4 +42,3 @@ $linksMap = array(
         </div>
     </div>
 </nav>
-

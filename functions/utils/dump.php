@@ -8,17 +8,15 @@
  */
 function dump(mixed $data, bool $die = false): void
 {
-    if (!$data) {
-        return;
-    }
+   
     if ($die) {
-        echo '<pre>';
-        print_r($data);
+        echo '<pre style="font-size: 18px; background-color: #000; color: #fff;padding: 10px;margin-bottom: 0px;">">';
+        var_dump($data);
         echo '</pre>';
         die();
     }
-    echo '<pre>';
-    print_r($data);
+    echo '<pre style="font-size: 18px; background-color: #000; color: #fff;padding: 10px; margin-bottom: 0px;">';
+    var_dump($data);
     echo '</pre>';
 
 
