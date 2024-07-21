@@ -3,7 +3,7 @@
 return [
     'db' => [
         'host' => 'localhost',
-        'dbname' => 'learn_mysql',
+        'dbname' => 'blog_site',
         'username' => 'root',
         'password' => '',
         'charset' => 'utf8',

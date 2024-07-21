@@ -1,6 +1,5 @@
 <?php
 
-
 $content = "<p>This is the About page.</p>";
 
 $title = "MyBlog :: About";
