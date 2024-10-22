@@ -1,6 +1,6 @@
 <?php
 
-namespace Functions\Classes;
+namespace Lib\Classes;
 class Validator
 {
 

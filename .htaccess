@@ -1,2 +1,6 @@
+# Activate the rewrite engine
 RewriteEngine On
-RewriteRule (.*) public/$1
+
+# Redirect all requests to the public folder
+RewriteRule (.*) public/$1 [L]
+

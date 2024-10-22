@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Functions\Classes;
+namespace Lib\Classes;
 
 use DateTime;
 use DateTimeZone;

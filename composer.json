@@ -2,7 +2,8 @@
     "name": "razor/sql-mysql",
     "autoload": {
         "psr-4": {
-            "Functions\\Classes\\": "functions/Functions/Classes/",
+            "Lib\\Classes\\": "lib/Classes/",
+            "Lib\\Functions\\": "lib/Functions/",
             "App\\": "app/"
         }
     },
