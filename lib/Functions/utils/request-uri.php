@@ -1,10 +1,17 @@
 <?php
 
+
+
 /**
- * Returns the trimmed request URI from the server.
+ * Returns an array with the URI, query string and GET parameters of the current request
  *
- * @return string The trimmed request URI.
+ * @return array
  */
-function request_uri(): string {
-    return trim(parse_url($_SERVER['REQUEST_URI'])['path'], '/');
+
+function request_uri(): array {
+    return [
+        "uri" => trim(parse_url($_SERVER['REQUEST_URI'])['path'], '/'),
+        "query" => parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY),
+        "get" => $_GET
+    ];
 }

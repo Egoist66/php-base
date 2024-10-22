@@ -2,7 +2,7 @@
 function db(string $dbname): PDO|null
 {
     try {
-        $connect = new PDO('mysql:host=localhost;dbname=' . $dbname, 'root', '');
+        $connect = new PDO("mysql:host=localhost;dbname=$dbname", 'root', '');
         $connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $connect->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         echo "<script>

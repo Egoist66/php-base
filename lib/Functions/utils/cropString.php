@@ -5,10 +5,6 @@ function cropString(string $string, int $length, string $cropFrom = 'end'): stri
         return $string;
     }
 
-    if ($cropFrom === 'start') {
-        $croppedString = ' ' . mb_substr($string, -$length + 3, NULL, 'UTF-8');
-    } else {
-        $croppedString = mb_substr($string, 0, $length - 3, 'UTF-8') . ' ';
-    }
+    $croppedString = ($cropFrom === 'start') ? ' ' . mb_substr($string, -$length + 3, NULL, 'UTF-8') : mb_substr($string, 0, $length - 3, 'UTF-8') . ' ';
     return $croppedString;
 }

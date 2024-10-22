@@ -10,6 +10,6 @@ function is_empty_data(mixed $data): bool{
         }
     }
 
-    return is_string() && empty($data);
+    return is_string($data) && empty($data);
 
 }

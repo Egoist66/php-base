@@ -16,7 +16,7 @@ function csrf_field(): string
     $csrf_token = $_SESSION['csrf_token'] ?? bin2hex(random_bytes(32));
     $_SESSION['csrf_token'] = $csrf_token;
 
-    return '<input type="hidden" name="csrf_token" value="' . $csrf_token . '">';
+    return "<input type=\"hidden\" name=\"csrf_token\" value=\"$csrf_token\">";
 }
 
 function validate_csrf(): void

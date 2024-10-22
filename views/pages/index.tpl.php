@@ -12,6 +12,14 @@
 
     </div>
 
+    
+
+
+
+
+    
+
+
 </main>
 
 <?= view('layout->footer') ?>
