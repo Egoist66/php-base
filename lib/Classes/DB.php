@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Lib\Classes;
@@ -43,12 +44,16 @@ class DB
     }
 
 
-    private function __clone()
+    private function __clone(): void
     {
         echo 'cloned db';
     }
 
-    public function __wakeup()
+
+    /**
+     * Disable unserialize() to prevent potential injection attacks.
+     */
+    public function __wakeup(): void
     {
     }
 
@@ -94,7 +99,6 @@ class DB
                     die;
                 default:
                     sessionRemove('db_error');
-
             }
             die;
         }
@@ -134,6 +138,4 @@ class DB
 
         return $this->sql_queries;
     }
-
 }
-
