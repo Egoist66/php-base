@@ -10,7 +10,6 @@ function Router(\Lib\Classes\DB $db): void
 {
     global $routes_map;
 
-    //dump($_REQUEST);
 
     if (request('get')) {
         ['path' => $path, 'id' => $id] = request_uri()['uri'];
@@ -25,6 +24,7 @@ function Router(\Lib\Classes\DB $db): void
         }
     
 
+        //dump($path);
 
 
         if (
