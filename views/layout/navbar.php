@@ -6,6 +6,13 @@ $linksMap = array(
         'slug' => 'php-base',
         'url' => '/',
     ],
+  
+    [
+        'name' => 'New Post',
+        'slug' => 'new-post',
+        'url' => '/posts/create',
+    ],
+
     [
         'name' => 'About',
         'slug' => 'about',
