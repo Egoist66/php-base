@@ -10,6 +10,14 @@ use PDOException;
 use PDOStatement;
 use PDO;
 
+enum DBDriver: string
+{
+    case MYSQL = 'mysql';
+    case SQLITE = 'sqlite';
+    case POSTGRESQL = 'postgresql';
+    case SQLSERVER = 'sqlserver';
+}
+
 
 class DB
 {
@@ -23,17 +31,35 @@ class DB
      */
     private array $sql_queries = [];
 
-    private function __construct(array $db_config)
+    private function __construct(array $db_config, string $driver = 'mysql')
     {
+        $dsn = '';
 
-        $dsn = "mysql:host={$db_config['db']['host']};dbname={$db_config['db']['dbname']};charset={$db_config['db']['charset']}";
+        switch ($driver) {
+            case DBDriver::MYSQL->value:
+                $dsn = "mysql:host={$db_config['db'][$driver]['host']};dbname={$db_config['db'][$driver]['dbname']};charset={$db_config['db'][$driver]['charset']}";
+                break;
+            case DBDriver::SQLITE->value:
+                $dsn = "sqlite:{$db_config['db'][$driver]['dbname']}";
+                break;
+            case DBDriver::POSTGRESQL->value:
+                $dsn = "pgsql:host={$db_config['db'][$driver]['host']};dbname={$db_config['db'][$driver]['dbname']}";
+                break;
+            case DBDriver::SQLSERVER->value:
+                $dsn = "sqlsrv:Server={$db_config['db'][$driver]['host']};Database={$db_config['db'][$driver]['dbname']}";
+                break;
+            default:
+                $dsn = '';
+        }
+
+      
 
         try {
             $this->connection = new PDO(
                 $dsn,
-                $db_config['db']['username'],
-                $db_config['db']['password'],
-                $db_config['db']['options']
+                $db_config['db'][$driver]['username'],
+                $db_config['db'][$driver]['password'],
+                $db_config['db'][$driver]['options']
             );
 
             echo "<script>console.log('DB Connected!')</script>";
@@ -41,6 +67,7 @@ class DB
             echo "DB Error: {$e->getMessage()}";
             die;
         }
+       
     }
 
 
@@ -57,16 +84,23 @@ class DB
     {
     }
 
+  
     /**
-     * Get the database instance.
-     *
-     * @param array $db_config The configuration array for the database connection.
-     * @return DB The database instance.
+     * @param array $db_config The configuration of the database connection.
+     * The expected keys in the array are:
+     * - db: array with the following keys:
+     *   - host: string with the hostname of the database server
+     *   - dbname: string with the name of the database
+     *   - username: string with the username to use when connecting to the database
+     *   - password: string with the password to use when connecting to the database
+     *   - charset: string with the charset to use when connecting to the database
+     *   - options: array with the options to use when connecting to the database
+     * @return DB The instance of the database connection.
      */
-    public static function getInstance(array $db_config): DB
+    public static function getInstance(array $db_config, string $driver = 'mysql'): DB
     {
         if (self::$instance === null) {
-            self::$instance = new self($db_config);
+            self::$instance = new self($db_config, $driver);
         }
         return self::$instance;
     }
@@ -131,10 +165,11 @@ class DB
     {
         $currentTime = new DateTime('now', new DateTimeZone($timezone));
 
-        $sql_data = $this->sql_queries; // Get the current SQL queries
+        $sql_data = DB::$instance->sql_queries; // Get the current SQL queries
 
+        
 
-        file_put_contents('sql.log.mdx', 'Log time - [' . $currentTime->format('Y-m-d H:i:s') . '] - ' . PHP_EOL . print_r($sql_data, true), FILE_APPEND);
+        file_put_contents('sql.log.mdx', 'Log time - [' . $currentTime->format('Y-m-d H:i:s') . '] - '  . print_r(json_encode($sql_data), true), FILE_APPEND);
 
         return $this->sql_queries;
     }

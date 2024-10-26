@@ -17,6 +17,7 @@ function dump(mixed $data, bool $print = true): void
        echo '<pre style="font-size: 18px; background-color: #000; color: #fff;padding: 10px;margin-bottom: 0px;">';
        var_dump($data);
        echo '</pre>';
+       die();
 
    }
 

@@ -9,19 +9,20 @@ require_once '../config/routes.map.php';
 function Router(\Lib\Classes\DB $db): void
 {
     global $routes_map;
-    $uri = request_uri()['uri'];
-  
+    [$path] = request_uri()['uri'];
+    $id = request_uri()['uri'][1] ?? null;
 
-    if(isset(request_uri()['get']['id'])){
+    // dump($uri, true);
+  
+    if(isset($id)) {
       
-        $id = request_uri()['get']['id'];
-       require_once CONTROLLERS . "/$routes_map[$uri]";
+       require_once CONTROLLERS . "/{$routes_map[$path]}";
     }
     
 
-    if (array_key_exists($uri, $routes_map) 
-        && file_exists(CONTROLLERS . "/{$routes_map[$uri]}")) {
-        require_once CONTROLLERS . "/$routes_map[$uri]";
+    if (array_key_exists($path, $routes_map) 
+        && file_exists(CONTROLLERS . "/{$routes_map[$path]}")) {
+        require_once CONTROLLERS . "/$routes_map[$path]";
     } else {
         abort();
     }

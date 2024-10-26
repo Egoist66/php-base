@@ -13,11 +13,10 @@ prevent_fav();
 
 
 
-use Lib\Classes\DB;
+use Lib\Classes\DB as Database;
 
 
-$db = DB::getInstance(require '../lib/config/config.php');
-$db->getSqlQueries('Europe/Moscow');
+$db = Database::getInstance(require '../lib/config/config.php', 'mysql');
 
 
 Router($db);

@@ -3,6 +3,6 @@
         <h5 class="card-title"><?= sanitize($post['title'])?></h5>
         <p>ID: <b><?= sanitize($post['id']) ?></b></p>
         <p class="card-text"><?= sanitize($post['excerpt'] )?></p>
-        <a href="post?id=<?= sanitize($post['id'] )?>" class="link-primary">Read more</a>
+        <a href="post/<?= sanitize($post['id'] )?>" class="link-primary">Read more</a>
     </div>
 </div>

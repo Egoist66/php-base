@@ -10,7 +10,7 @@
 
 function request_uri(): array {
     return [
-        "uri" => trim(parse_url($_SERVER['REQUEST_URI'])['path'], '/'),
+        "uri" => explode('/', trim(parse_url($_SERVER['REQUEST_URI'])['path'], '/')),
         "query" => parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY),
         "get" => $_GET
     ];

@@ -6,9 +6,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
-                    <h1><?= $post['title'] ?></h1>
+                    <h1><?= sanitize($post['title']) ?></h1>
                     <div class="post-content">
-                        <?= $post['content'] ?>
+                        <?= sanitize($post['content'])?>
                     </div>
                 </div>
                
