@@ -19,7 +19,7 @@ enum DBDriver: string
 }
 
 
-class DB
+final class DB
 {
 
     private static ?DB $instance = null;
@@ -33,26 +33,16 @@ class DB
 
     private function __construct(array $db_config, string $driver = 'mysql')
     {
-        $dsn = '';
 
-        switch ($driver) {
-            case DBDriver::MYSQL->value:
-                $dsn = "mysql:host={$db_config['db'][$driver]['host']};dbname={$db_config['db'][$driver]['dbname']};charset={$db_config['db'][$driver]['charset']}";
-                break;
-            case DBDriver::SQLITE->value:
-                $dsn = "sqlite:{$db_config['db'][$driver]['dbname']}";
-                break;
-            case DBDriver::POSTGRESQL->value:
-                $dsn = "pgsql:host={$db_config['db'][$driver]['host']};dbname={$db_config['db'][$driver]['dbname']}";
-                break;
-            case DBDriver::SQLSERVER->value:
-                $dsn = "sqlsrv:Server={$db_config['db'][$driver]['host']};Database={$db_config['db'][$driver]['dbname']}";
-                break;
-            default:
-                $dsn = '';
-        }
 
-      
+        $dsn = match ($driver) {
+            DBDriver::MYSQL->value => "mysql:host={$db_config['db'][$driver]['host']};dbname={$db_config['db'][$driver]['dbname']};charset={$db_config['db'][$driver]['charset']}",
+            DBDriver::SQLITE->value => "sqlite:{$db_config['db'][$driver]['dbname']}",
+            DBDriver::POSTGRESQL->value => "pgsql:host={$db_config['db'][$driver]['host']};dbname={$db_config['db'][$driver]['dbname']}",
+            DBDriver::SQLSERVER->value => "sqlsrv:Server={$db_config['db'][$driver]['host']};Database={$db_config['db'][$driver]['dbname']}",
+            default => '',
+        };
+
 
         try {
             $this->connection = new PDO(
@@ -67,7 +57,6 @@ class DB
             echo "DB Error: {$e->getMessage()}";
             die;
         }
-       
     }
 
 
@@ -80,11 +69,9 @@ class DB
     /**
      * Disable unserialize() to prevent potential injection attacks.
      */
-    public function __wakeup(): void
-    {
-    }
+    public function __wakeup(): void {}
 
-  
+
     /**
      * @param array $db_config The configuration of the database connection.
      * The expected keys in the array are:
@@ -100,8 +87,10 @@ class DB
     public static function getInstance(array $db_config, string $driver = 'mysql'): DB
     {
         if (self::$instance === null) {
+
             self::$instance = new self($db_config, $driver);
         }
+
         return self::$instance;
     }
 
@@ -167,7 +156,7 @@ class DB
 
         $sql_data = DB::$instance->sql_queries; // Get the current SQL queries
 
-        
+
 
         file_put_contents('sql.log.mdx', 'Log time - [' . $currentTime->format('Y-m-d H:i:s') . '] - '  . print_r(json_encode($sql_data), true), FILE_APPEND);
 

@@ -17,6 +17,9 @@ use Lib\Classes\DB as Database;
 
 
 $db = Database::getInstance(require '../lib/config/config.php', 'mysql');
+$d2 = Database::getInstance(require '../lib/config/config.php', 'mysql');
+
+
 
 
 Router($db);
