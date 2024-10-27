@@ -50,8 +50,7 @@ function Router(\Lib\Classes\DB $db, array $routes_map): void
                 );
 
 
-              
-
+            
                 if($data){
                     if ($db->custom_query("INSERT INTO posts (title, excerpt, content) VALUES (?, ?, ?)", [$data['title'], $data['excerpt'], $data['content']])) {
                         redirect('/');

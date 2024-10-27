@@ -24,7 +24,7 @@ function input(array $attrs, array $fillable, ?callable $errorHandler): array|nu
         $errors = [];
 
         foreach ($fillable as $key) {
-            if (!array_key_exists($key, $attrs) || empty($_POST[$key])) {
+            if (!array_key_exists($key, $attrs) || empty(trim($_POST[$key]))) {
                 $errors[] = "Field $key is required! <br>";
             }
         }
