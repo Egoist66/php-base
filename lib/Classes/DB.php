@@ -47,9 +47,9 @@ final class DB
         try {
             $this->connection = new PDO(
                 $dsn,
-                $db_config['db'][$driver]['username'],
-                $db_config['db'][$driver]['password'],
-                $db_config['db'][$driver]['options']
+                $db_config['db'][$driver]['username'] ?? '',
+                $db_config['db'][$driver]['password'] ?? '',
+                $db_config['db'][$driver]['options'] ?? ''
             );
 
             //echo "<script>console.log('DB Connected!')</script>";

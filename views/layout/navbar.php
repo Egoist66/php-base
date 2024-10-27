@@ -4,19 +4,19 @@ $linksMap = array(
     [
         'name' => 'Home',
         'slug' => 'php-base',
-        'url' => '/',
+        'url' => '',
     ],
   
     [
         'name' => 'New Post',
         'slug' => 'new-post',
-        'url' => '/posts/create',
+        'url' => 'posts/create',
     ],
 
     [
         'name' => 'About',
         'slug' => 'about',
-        'url' => '/about',
+        'url' => 'about',
     ],
 );
 
@@ -38,7 +38,7 @@ $linksMap = array(
 
 
                     <li class="nav-item">
-                        <a class="nav-link" href=<?= $link['url'] ?>><?= $link['name'] ?></a>
+                        <a class="nav-link <?= request_uri()['uri']['path'] === $link['url'] ? 'active' : ''; ?>" href=<?= $link['url'] ?>><?= $link['name'] ?></a>
                     </li>
 
                 <?php endforeach; ?>

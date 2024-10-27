@@ -11,6 +11,7 @@ error_reporting(E_ALL);
 require_once __DIR__.'/../vendor/autoload.php';
 require_once '../config/path-constants.php';
 require_once '../lib/Functions/functions.php';
+require_once '../config/routes.map.php';
 require_once '../app/Router/router.php';
 
 prevent_fav();
@@ -27,7 +28,6 @@ $db = Database::getInstance(
 
 
 
-Router($db);
-
+Router($db, $routes_map);
 
 
