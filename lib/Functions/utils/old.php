@@ -1,11 +1,16 @@
 <?php
 
 
-function old(string $name): string
+/**
+ * Returns the value of the named input field from the previous request, 
+ * sanitized and trimmed.
+ * 
+ * @param string $name
+ * @return string|null
+ */
+function old(string $name = ''): string
 {
-    static $storage = [];
-    if (!empty($_POST[$name])) {
-        $storage[$name] = $_POST[$name];
-    }
-    return htmlspecialchars($storage[$name]);
+    return sanitize(
+        trim($_POST[$name] ?? '')
+    ) ?? null;
 }

@@ -9,16 +9,16 @@
                 <h2>New Post</h2>
                 <div class="form-group mb-3">
                     <label for="title">Title</label>
-                    <input type="text" class="form-control" id="title" name="title">
+                    <input value="<?= old('title') ?>" type="text" class="form-control" id="title" name="title">
                 </div>
                 <div class="form-group mb-3">
                     <label for="excerpt">Excerpt</label>
-                    <textarea class="form-control" id="excerpt" name="excerpt" rows="2"></textarea>
+                    <textarea class="form-control" id="excerpt" name="excerpt" rows="2"><?= old('excerpt') ?></textarea>
                 </div>
               
                 <div class="form-group mb-3">
                     <label for="content">Content</label>
-                    <textarea class="form-control" id="content" name="content" rows="5"></textarea>
+                    <textarea  class="form-control" id="content" name="content" rows="5"><?= old('content') ?? '' ?></textarea>
                 </div>
 
                 <div class="form-group">

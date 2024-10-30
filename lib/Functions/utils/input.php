@@ -48,7 +48,7 @@ function input(array $attrs, array $fillable, ?callable $errorHandler): array|nu
                 throw new \RuntimeException("Wrong input type for {$key}. Expected" . ' ' . gettype($_POST[$key]) . " instead of " . $type);
             }
 
-            $result[$key] = sanitize($_POST[$key]);
+            $result[$key] = trim($_POST[$key]);
 
 
         }
