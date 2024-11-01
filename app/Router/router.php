@@ -8,14 +8,17 @@
 function Router(\Lib\Classes\DB $db, array $routes_map): void
 {
 
+    global $blog_options;
+
 
     if (request('get')) {
         ['path' => $path, 'id' => $id] = request_uri()['uri'];
         $slug = explode('/', $path)[0] ?? null;
 
 
+ 
         try {
-            if (isset($id) && is_numeric($id)) {
+            if (isset($id)) {
 
                 require_once CONTROLLERS . "/{$routes_map[$slug]}";
                 return;
@@ -42,7 +45,7 @@ function Router(\Lib\Classes\DB $db, array $routes_map): void
 
 
     if (request('post')) {
-        dump($_SERVER, false);
+
         switch (request_uri()['uri']['path']) {
             case 'posts/create':
 

@@ -1,3 +1,4 @@
+
 <div class="row">
     <div class="col-md-8">
         <?php foreach ($posts as $postIndex => $post): ?>
@@ -13,7 +14,7 @@
 
             <?php foreach ($recent_posts as $post): ?>
                 <li class="list-group-item">
-                    <a href="post/<?= $post['id'] ?>"><?= sanitize($post['title']) ?></a>
+                    <a href="post/<?= $post['id'] ?>"><?= sanitize($post['title'], $blog_options['allowed_tags']) ?></a>
                 </li>
             <?php endforeach; ?>
         </ul>

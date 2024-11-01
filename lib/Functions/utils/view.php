@@ -20,6 +20,7 @@ const VIEW_PATH = '../views';
 function view(string $viewFile, array $data = []): false|string|IView
 {
 
+    global $blog_options;
     try {
         [$folder, $file] = explode('->', $viewFile);
 

@@ -9,6 +9,7 @@ error_reporting(E_ALL);
 
 
 require_once __DIR__.'/../vendor/autoload.php';
+require_once '../config/blog_config.php';
 require_once '../config/path-constants.php';
 require_once '../lib/Functions/functions.php';
 require_once '../config/routes.map.php';
@@ -19,6 +20,7 @@ prevent_fav();
 
 
 use Lib\Classes\DB as Database;
+
 
 
 $db = Database::getInstance(

@@ -15,11 +15,12 @@
  *   @var array $get The GET parameters of the URI.
  * )
  */
-function request_uri(): array {
+function request_uri(): array
+{
     return [
         "uri" => [
             "path" => preg_replace('/^\/(?!\/)/', '', $_SERVER['REQUEST_URI']),
-            "id" => explode('/',preg_replace('/^\/(?!\/)/', '', $_SERVER['REQUEST_URI']))[1] ?? null
+            "id" => (is_numeric(explode('/', preg_replace('/^\/(?!\/)/', '', $_SERVER['REQUEST_URI']))[1] ?? null) ? explode('/', preg_replace('/^\/(?!\/)/', '', $_SERVER['REQUEST_URI']))[1] : null) ?? null
         ],
         "query" => parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY),
         "get" => $_GET
