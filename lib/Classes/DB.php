@@ -1,23 +1,21 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace Lib\Classes;
 
 use DateTime;
 use DateTimeZone;
+use PDO;
 use PDOException;
 use PDOStatement;
-use PDO;
 
-enum DBDriver: string
-{
+enum DBDriver: string {
     case MYSQL = 'mysql';
     case SQLITE = 'sqlite';
     case POSTGRESQL = 'postgresql';
     case SQLSERVER = 'sqlserver';
 }
-
 
 final class DB
 {
@@ -34,7 +32,6 @@ final class DB
     private function __construct(array $db_config, string $driver = 'mysql')
     {
 
-
         $dsn = match ($driver) {
             DBDriver::MYSQL->value => "mysql:host={$db_config['db'][$driver]['host']};dbname={$db_config['db'][$driver]['dbname']};charset={$db_config['db'][$driver]['charset']}",
             DBDriver::SQLITE->value => "sqlite:{$db_config['db'][$driver]['dbname']}",
@@ -42,7 +39,6 @@ final class DB
             DBDriver::SQLSERVER->value => "sqlsrv:Server={$db_config['db'][$driver]['host']};Database={$db_config['db'][$driver]['dbname']}",
             default => '',
         };
-
 
         try {
             $this->connection = new PDO(
@@ -59,18 +55,17 @@ final class DB
         }
     }
 
-
     private function __clone(): void
     {
         echo 'cloned db';
     }
 
-
     /**
      * Disable unserialize() to prevent potential injection attacks.
      */
-    public function __wakeup(): void {}
-
+    public function __wakeup(): void
+    {
+    }
 
     /**
      * @param array $db_config The configuration of the database connection.
@@ -96,14 +91,14 @@ final class DB
 
 
     /**
-     * A description of the entire PHP function.
-     *
-     * @param string $query description
-     * @param array $params description
-     * @return DB|null
-     * @throws PDOException description of exception
+     * Makes a custom SQL query to the database.
+     * @param string $query The SQL query to execute.
+     * @param array $params The parameters to bind to the query.
+     * @param callable|null $errorHandler A callable to handle the error if the query fails.
+     * The error handler receives a PDOException as its only argument.
+     * @return DB|null The instance of the database connection if the query was successful, null otherwise.
      */
-    final public function custom_query(string $query, array $params = []): DB|null
+    final public function custom_query(string $query, array $params = [],  ? callable $errorHandler = null) : DB | null
     {
 
         try {
@@ -115,15 +110,25 @@ final class DB
             $this->sql_queries[] = ob_get_clean();
             return $this;
         } catch (PDOException $e) {
+
+            //dump($e->getCode());
             switch ($e->getCode()) {
                 case 23000:
                     sessionSet('db_error', 'Such user already exists!');
                     header('Location: ' . $_SERVER['PHP_SELF']);
-                    die;
+                    break;
+                case '42S22':
+                    if ($errorHandler && is_callable($errorHandler)) {
+                        call_user_func($errorHandler, $e);
+                    }
+                    break;
+
                 default:
                     sessionRemove('db_error');
+                    break;
             }
-            die;
+
+            return null;
         }
     }
 
@@ -136,7 +141,7 @@ final class DB
      * @return false|array
      * gets all rows from the table
      */
-    final public function findAll(): false|array
+    final public function findAll(): false | array
     {
         return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -156,9 +161,7 @@ final class DB
 
         $sql_data = DB::$instance->sql_queries; // Get the current SQL queries
 
-
-
-        file_put_contents('sql.log.mdx', 'Log time - [' . $currentTime->format('Y-m-d H:i:s') . '] - '  . print_r(json_encode($sql_data), true), FILE_APPEND);
+        file_put_contents('sql.log.mdx', 'Log time - [' . $currentTime->format('Y-m-d H:i:s') . '] - ' . print_r(json_encode($sql_data), true), FILE_APPEND);
 
         return $this->sql_queries;
     }
